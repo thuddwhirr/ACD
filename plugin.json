@@ -1,0 +1,13 @@
+{
+    "name" : "ACD Manager",
+    "author" : "wolthius",
+    "description" : "ACD Call Management system",
+    "links" : [
+        {
+            "url" : "acd",
+            "script" : "acd.php",
+            "label" : "Calls Waiting",
+            "menu" : "Operator Panel"
+        }
+    ]
+}

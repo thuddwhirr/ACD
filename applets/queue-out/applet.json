@@ -1,0 +1,5 @@
+{ 
+  "name":"Queue Out", 
+  "description" : "Remove call from a queue", 
+  "type" : "voice"
+}
