@@ -1,6 +1,7 @@
-<script>var claimed=false</script>
-
 <?php
+/* Include JS for polling calls */
+OpenVBX::addJS('script.js');
+	
 function claim($client, $conferenceSid, $phoneNumber,$account)
 {
     $twiml = "<Response><Dial><Conference startConferenceOnEnter='true' endConferenceOnExit='true' beep='false'>$conferenceSid</Conference></Dial></Response>";
@@ -52,70 +53,3 @@ if(array_key_exists('claim',$_REQUEST))
 </table>
 </div>
 <div id="cometcatchr"></div>
-
-
-
-<script>
-
-var queueData = null;
-
-$(document).ready(function() {
-
-  $.getJSON("acd?json=true",
-        function(data){
-		if((data!=null)&&(data!='')){
-			renderTable(data);
-			queueData=data;
-		}
-	});
-  
-  timedRefresh();
-  timedReload();
-});
-
-function timedReload(){
-  getData();
-  setTimeout(function(){timedReload()},5000);
-}
-
-function timedRefresh(){
-   if((queueData!=null)&&(queueData!='')) renderTable(queueData);
-   setTimeout(function(){timedRefresh()},500);
-}
-
-
-
-function getData(){
-  $.getJSON("acd?json=true",
-        function(data){
-                if((data!=null)&&(data!='')){
-                        renderTable(data);
-			queueData=data;
-		} else {
-			queueData=null;
-			clearTable();
-		}
-        });
-}
-
-function clearTable(){
-  $("#call_waiting_body").empty();
-}
-
-function renderTable(data){
-  clearTable();
-  var tbody = $("#call_waiting_body");
-  $.each(data, function(key, value) {
-	var queueName = key;
-	$.each(value, function(callsid,call){
-		var starttime=Date.parse(call['startTime']);
-		var waiting = Math.floor(((new Date()).getTime()-starttime)/1000);
-		if(!claimed) tbody.append("<tr><td>"+call['queueName']+"</td><td>"+call['caller']+"</td><td>"+waiting+" s</td><td><div class='vbx-input-container'><form method='POST'><input type='hidden' name='claim' value='"+call['conferenceSid']+"'><input type='submit' value='Claim'></form></div></td></tr>");
-		else tbody.append("<tr><td>"+call['queueName']+"</td><td>"+call['caller']+"</td><td>"+waiting+" s</td><td></td></tr>");
-	});
-});
-
-}
-
-</script>
-
