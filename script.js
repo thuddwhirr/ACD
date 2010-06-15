@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var ACD = {
-		claimed : false,
+		claimed : false, 
 		queueData : false,
 		clearTable : function() {
 			$("#call_waiting_body").empty();
@@ -34,7 +34,7 @@ $(document).ready(function() {
 		},
 		getData : function() {
 			$.ajax({
-				url : OpenVBX.home + "/plugins/p/acd?json=true",
+				url : OpenVBX.home + "/p/acd?json=true",
 				type : 'GET',
 				dataType : 'json',
 				success : function(data){

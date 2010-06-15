@@ -14,10 +14,7 @@ function claim($client, $conferenceSid, $phoneNumber,$account)
 
     if($response->IsError)
 		echo "Error starting phone call: {$response->ErrorMessage}\n";
-
-    echo "<script>$.notify('Claiming caller $phoneNumber'); claimed ='$conferenceSid';</script>\n";
 }
-
 //Get list of running conferences that have not started
 $client = new TwilioRestClient($this->twilio_sid,$this->twilio_token);
 
@@ -36,7 +33,6 @@ if(array_key_exists('claim',$_REQUEST))
 }
 
 ?>
-
 <div class="vbx-plugin">
     <h2>Calls Waiting</h2>
 <table>
